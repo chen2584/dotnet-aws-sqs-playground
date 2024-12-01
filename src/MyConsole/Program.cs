@@ -36,13 +36,9 @@ static async Task ConsumeMessageAsync()
         foreach (var message in receiveMessageResponse.Messages)
         {
             Console.WriteLine($"Receive Message Id: {message.MessageId}, Body: {message.Body}");
-
-            var newAttribute = new Dictionary<string, string>()
-            {
-                { "NewAttribute", "Heeeeeeeelo!" }
-            };
-            // var deleteMessageResponse = await sqsClient.DeleteMessageAsync(queueUrl, message.ReceiptHandle);
-            // Console.WriteLine($"Delete Message Id: {message.MessageId} with Receipt Handle: {message.ReceiptHandle} with Http Status Code {deleteMessageResponse.HttpStatusCode}");
+            
+            var deleteMessageResponse = await sqsClient.DeleteMessageAsync(queueUrl, message.ReceiptHandle);
+            Console.WriteLine($"Delete Message Id: {message.MessageId} with Receipt Handle: {message.ReceiptHandle} with Http Status Code {deleteMessageResponse.HttpStatusCode}");
         }
     }
 }
